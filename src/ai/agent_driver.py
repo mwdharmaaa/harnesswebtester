@@ -46,6 +46,7 @@ class AIAgentDriver:
                 messages=current_messages,
                 tools=HARNESS_TOOLS,
                 tool_choice="auto",
+                parallel_tool_calls=False,
                 temperature=0.1,
             )
         except Exception as err:
