@@ -1,0 +1,10 @@
+{
+  "name": "sample_login_test",
+  "description": "Verify authentication form submission on demo test page",
+  "start_url": "https://the-internet.herokuapp.com/login",
+  "goal": "Fill the username field with 'tomsmith', the password field with 'SuperSecretPassword!', click the login button, and verify that secure area success banner is visible.",
+  "expected_assertions": [
+    "You logged into a secure area!"
+  ],
+  "max_steps": 10
+}

@@ -1,0 +1,10 @@
+{
+  "name": "sample_search_test",
+  "description": "Verify search functionality on DuckDuckGo and result presence",
+  "start_url": "https://html.duckduckgo.com/html/",
+  "goal": "Type 'playwright python' into the search input, submit search, and verify that search results are displayed.",
+  "expected_assertions": [
+    "DuckDuckGo"
+  ],
+  "max_steps": 10
+}
