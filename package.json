@@ -1,0 +1,25 @@
+{
+  "name": "ai-web-test-harness",
+  "version": "1.0.0",
+  "description": "Desktop AI E2E Web Testing Harness powered by Playwright and OpenAI SDK",
+  "main": "electron/main/index.cjs",
+  "type": "commonjs",
+  "scripts": {
+    "start": "electron electron/main/index.cjs",
+    "dev": "electron electron/main/index.cjs"
+  },
+  "keywords": [
+    "testing",
+    "e2e",
+    "ai",
+    "playwright",
+    "deepseek",
+    "opencode",
+    "electron"
+  ],
+  "author": "mwdharmaaa",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^35.0.0"
+  }
+}
