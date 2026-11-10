@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Web Test Harness</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Frameless Titlebar -->
+  <header class="titlebar">
+    <div class="titlebar-drag-region">
+      <div class="app-brand">
+        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+          <polyline points="2 17 12 22 22 17"></polyline>
+          <polyline points="2 12 12 17 22 12"></polyline>
+        </svg>
+        <span class="app-title">AI Web Test Harness</span>
+        <span id="active-model-pill" class="model-badge">deepseek-chat</span>
+      </div>
+    </div>
+    <div class="window-controls">
+      <button id="btn-minimize" class="win-btn" title="Minimize">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      </button>
+      <button id="btn-maximize" class="win-btn" title="Maximize">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"></rect></svg>
+      </button>
+      <button id="btn-close" class="win-btn win-btn-close" title="Close">
+        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- App Workspace Layout -->
+  <div class="workspace-body">
+    <!-- Sidebar Navigation -->
+    <nav class="nav-sidebar">
+      <button class="nav-item active" data-tab="runner">
+        <svg class="nav-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        <span>Live Runner</span>
+      </button>
+      <button class="nav-item" data-tab="scenarios">
+        <svg class="nav-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        <span>Scenarios</span>
+      </button>
+      <button class="nav-item" data-tab="reports">
+        <svg class="nav-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+        <span>Reports</span>
+      </button>
+      <button class="nav-item" data-tab="settings">
+        <svg class="nav-icon" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        <span>Settings</span>
+      </button>
+    </nav>
+
+    <!-- Main View Switcher -->
+    <main class="main-content">
+      <!-- Tab 1: Live Runner -->
+      <section id="view-runner" class="tab-view active">
+        <div class="runner-card">
+          <div class="card-header">
+            <h3>Autonomous Execution Dispatcher</h3>
+            <div id="status-pill" class="status-badge status-idle">IDLE</div>
+          </div>
+          <div class="form-grid">
+            <div class="form-group full">
+              <label for="input-url">Target URL</label>
+              <input type="text" id="input-url" placeholder="https://html.duckduckgo.com/html/" value="https://html.duckduckgo.com/html/">
+            </div>
+            <div class="form-group full">
+              <label for="input-goal">Natural Language Testing Goal</label>
+              <textarea id="input-goal" rows="2" placeholder="Search 'playwright python' and verify results appear">Type 'playwright python' into the search input, submit search, and verify that search results are displayed.</textarea>
+            </div>
+          </div>
+          <div class="action-bar">
+            <div class="left-actions">
+              <select id="select-scenario-quick" class="select-input">
+                <option value="">Load Preset Scenario...</option>
+              </select>
+            </div>
+            <div class="right-actions">
+              <button id="btn-stop" class="btn btn-secondary" disabled>Stop</button>
+              <button id="btn-run" class="btn btn-primary">Run Test</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="terminal-card">
+          <div class="terminal-header">
+            <span>Execution Log Stream</span>
+            <button id="btn-clear-log" class="btn-text">Clear</button>
+          </div>
+          <div id="terminal-stream" class="terminal-body">
+            <div class="log-line log-info">[System] AI Web Test Harness ready. Configure API key and click 'Run Test'.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab 2: Scenarios -->
+      <section id="view-scenarios" class="tab-view">
+        <div class="section-header">
+          <h3>Test Scenarios Library</h3>
+          <button id="btn-refresh-scenarios" class="btn btn-secondary">Refresh</button>
+        </div>
+        <div id="scenarios-grid" class="cards-grid"></div>
+      </section>
+
+      <!-- Tab 3: Reports -->
+      <section id="view-reports" class="tab-view">
+        <div class="section-header">
+          <h3>Execution Reports & Traces</h3>
+          <button id="btn-refresh-reports" class="btn btn-secondary">Refresh</button>
+        </div>
+        <div id="reports-list" class="reports-container"></div>
+      </section>
+
+      <!-- Tab 4: Settings -->
+      <section id="view-settings" class="tab-view">
+        <div class="settings-card">
+          <h3>OpenAI SDK & Model Gateway</h3>
+          <div class="form-group">
+            <label for="setting-base-url">API Base URL</label>
+            <input type="text" id="setting-base-url" value="https://api.deepseek.com/v1">
+          </div>
+          <div class="form-group">
+            <label for="setting-api-key">API Key</label>
+            <input type="password" id="setting-api-key" placeholder="Enter DeepSeek or OpenCode API key">
+          </div>
+          <div class="form-group">
+            <label for="setting-model">Model Name</label>
+            <select id="setting-model" class="select-input">
+              <option value="deepseek-chat">deepseek-chat (DeepSeek-V3 Standard)</option>
+              <option value="deepseek-flash">deepseek-flash (OpenCode / Fast Tier)</option>
+              <option value="deepseek-reasoner">deepseek-reasoner (R1 Reasoning)</option>
+            </select>
+          </div>
+          <div class="form-group checkbox-group">
+            <label><input type="checkbox" id="setting-headless" checked> Headless Browser Mode (uncheck to show Chrome window)</label>
+          </div>
+          <button id="btn-save-settings" class="btn btn-primary">Save Settings</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
