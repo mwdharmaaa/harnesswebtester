@@ -1,0 +1,13 @@
+services:
+  harness:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - AI_BASE_URL=${AI_BASE_URL:-https://api.deepseek.com/v1}
+      - AI_API_KEY=${AI_API_KEY}
+      - AI_MODEL_NAME=${AI_MODEL_NAME:-deepseek-chat}
+      - HEADLESS=true
+    volumes:
+      - ./reports:/app/reports
+      - ./scenarios:/app/scenarios
